@@ -16,7 +16,8 @@ use revm::{
     db::CacheDB,
     primitives::{ResultAndState, TxEnv},
 };
-use revm_primitives::{EnvKzgSettings, EnvWithHandlerCfg, SpecId, MAX_BLOB_GAS_PER_BLOCK};
+use revm_primitives::{EnvKzgSettings, EnvWithHandlerCfg, SpecId};
+use reth_primitives::constants::MAX_DATA_GAS_PER_BLOCK;
 
 use reth_provider::{ChainSpecProvider, HeaderProvider};
 use reth_rpc_eth_api::{
@@ -89,7 +90,7 @@ where
                 }
             })
             .sum::<u64>() >
-            MAX_BLOB_GAS_PER_BLOCK
+            MAX_DATA_GAS_PER_BLOCK
         {
             return Err(EthApiError::InvalidParams(
                 EthBundleError::Eip4844BlobGasExceeded.to_string(),
@@ -290,7 +291,7 @@ pub enum EthBundleError {
     #[error("bundle missing blockNumber")]
     BundleMissingBlockNumber,
     /// Thrown when the blob gas usage of the blob transactions in a bundle exceed
-    /// [`MAX_BLOB_GAS_PER_BLOCK`].
-    #[error("blob gas usage exceeds the limit of {MAX_BLOB_GAS_PER_BLOCK} gas per block.")]
+    /// [`MAX_DATA_GAS_PER_BLOCK`].
+    #[error("blob gas usage exceeds the limit of {MAX_DATA_GAS_PER_BLOCK} gas per block.")]
     Eip4844BlobGasExceeded,
 }

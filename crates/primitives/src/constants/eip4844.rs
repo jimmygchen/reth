@@ -4,9 +4,21 @@ pub use trusted_setup::*;
 
 pub use alloy_eips::eip4844::{
     BLOB_GASPRICE_UPDATE_FRACTION, BLOB_TX_MIN_BLOB_GASPRICE, DATA_GAS_PER_BLOB,
-    FIELD_ELEMENTS_PER_BLOB, FIELD_ELEMENT_BYTES, MAX_BLOBS_PER_BLOCK, MAX_DATA_GAS_PER_BLOCK,
-    TARGET_BLOBS_PER_BLOCK, TARGET_DATA_GAS_PER_BLOCK, VERSIONED_HASH_VERSION_KZG,
+    FIELD_ELEMENTS_PER_BLOB, FIELD_ELEMENT_BYTES,
+    VERSIONED_HASH_VERSION_KZG,
 };
+
+/// Maximum data gas for data blobs in a single block.
+pub const MAX_DATA_GAS_PER_BLOCK: u64 = 2_097_152u64; // 0x200000 = 16 * 0x20000
+
+/// Maximum number of data blobs in a single block.
+pub const MAX_BLOBS_PER_BLOCK: usize = (MAX_DATA_GAS_PER_BLOCK / DATA_GAS_PER_BLOB) as usize; // 2097152 / 131072  = 16
+
+/// Target data gas for data blobs in a single block.
+pub const TARGET_DATA_GAS_PER_BLOCK: u64 = 1_048_576u64; // 0x100000 = 8 * 0x20000
+
+/// Target number of data blobs in a single block.
+pub const TARGET_BLOBS_PER_BLOCK: u64 = TARGET_DATA_GAS_PER_BLOCK / DATA_GAS_PER_BLOB; // 1048576 / 131072 = 8
 
 #[cfg(feature = "c-kzg")]
 mod trusted_setup {

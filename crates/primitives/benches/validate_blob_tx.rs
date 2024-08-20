@@ -12,7 +12,6 @@ use proptest::{
 };
 use proptest_arbitrary_interop::arb;
 use reth_primitives::{BlobTransactionSidecar, TxEip4844};
-use revm_primitives::MAX_BLOB_NUMBER_PER_BLOCK;
 
 // constant seed to use for the rng
 const SEED: [u8; 32] = hex!("1337133713371337133713371337133713371337133713371337133713371337");

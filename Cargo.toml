@@ -377,7 +377,7 @@ revm = { version = "11.0.0", features = [
     "secp256k1",
     "blst",
 ], default-features = false }
-revm-primitives = { version = "6.0.0", features = [
+revm-primitives = { version = "6.0", features = [
     "std",
 ], default-features = false }
 revm-inspectors = "0.4"
@@ -535,3 +535,6 @@ serial_test = "3"
 similar-asserts = "1.5.0"
 test-fuzz = "5"
 iai-callgrind = "0.11"
+
+[patch.crates-io]
+revm-primitives = { git = "https://github.com/jimmygchen/revm.git", rev = "28168bfde52708b5e1f0d4390e6b9e51687abf1f" }
